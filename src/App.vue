@@ -7,6 +7,7 @@ const urlData = {
     tv: '/search/tv'
   },
   genres: '/genre/movie/list',
+  languages: '/configuration/languages',
   apiKey: 'b2955b1b545c26b1b74bcc846aea4325'
 }
 
@@ -38,12 +39,10 @@ export default {
     fetchMovie(url) {
       axios.get(url).then(res => {
         let movies = res.data.results;
-        // console.log(movies);
 
         movies = this.filterGenres(movies, store.selectedGenre);
-        // console.log(movies);
-
         console.log(movies);
+
         store.myMovies = movies.map(movie=> {
           const {id, original_title, title, original_language, vote_average, genre_ids} = movie;
           return {
@@ -60,10 +59,9 @@ export default {
     fetchTv(url) {
       axios.get(url).then(res => {
         let tvs = res.data.results;
-        // console.log(tvs);
 
         tvs = this.filterGenres(tvs, store.selectedGenre);
-        // console.log(tvs);
+        console.log(tvs);
 
         store.myTvs = tvs.map(tv => {
           const {id, original_name, name, original_language, vote_average, genre_ids} = tv;
@@ -87,6 +85,14 @@ export default {
         store.myGenres = res.data.genres;
       })
     },
+    getLanguageList(url) {
+      axios.get(url).then(res => {
+        const languages = res.data;
+        store.myLanguages = languages.map(lang => {
+          return lang.iso_639_1;
+        });
+      })
+    },
     filterGenres(films, genre) {
       if (store.selectedGenre === -1) return films;
       return films = films.filter(film => {
@@ -96,6 +102,7 @@ export default {
   },
   mounted() {
     this.getGenreList(`${urlData.baseUri}${urlData.genres}?api_key=${urlData.apiKey}`);
+    this.getLanguageList(`${urlData.baseUri}${urlData.languages}?api_key=${urlData.apiKey}`);
   }
 }
 </script>

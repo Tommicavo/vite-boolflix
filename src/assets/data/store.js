@@ -5,5 +5,6 @@ export const store = reactive({
     myMovies: [],
     myTvs: [],
     myGenres: [],
+    myLanguages: [],
     selectedGenre: ''
 });

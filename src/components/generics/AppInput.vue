@@ -23,7 +23,7 @@ export default {
 <template>
   <div class="input-group p-5">
     <input type="text" class="form-control" placeholder="Search..."
-    v-model="store.searchedText">
+    v-model="store.searchedText" @keyup.enter="isInputSubmitted">
     <button class="btn btn-primary" type="button"
     @click="isInputSubmitted">Search</button>
   </div>

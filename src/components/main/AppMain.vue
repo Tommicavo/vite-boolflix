@@ -42,5 +42,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-
+.col{
+  height: 400px;
+}
 </style>

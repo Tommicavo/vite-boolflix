@@ -5,7 +5,7 @@ import App from './App.vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-// Font-Awesome Icons
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 createApp(App)
 .component('font-awesome-icon', FontAwesomeIcon)

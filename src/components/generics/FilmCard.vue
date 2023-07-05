@@ -16,7 +16,7 @@ export default {
 <template>
   <div class="myCard">
     <div> {{ cardData.title }} </div>
-    <div> {{ cardData.originalTitle }} </div>
+    <!-- <div> {{ cardData.originalTitle }} </div> -->
     <div> {{ cardData.lang }} </div>
     <div> {{ cardData.vote }} </div>
   </div>

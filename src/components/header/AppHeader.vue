@@ -14,11 +14,14 @@ export default {
   props: {},
   computed: {},
   methods: {
-    submitInput() {
-      this.$emit('submit-input');
+    isInputSubmitted() {
+      this.$emit('input-submitted');
+    },
+    isSelectChanged() {
+      this.$emit('select-changed');
     }
   },
-  emits: ['submit-input']
+  emits: ['input-submitted', 'select-changed']
 }
 </script>
 
@@ -29,8 +32,8 @@ export default {
         LOGO BOOLFLIX
       </div>
       <div class="headerNav d-flex align-items-center gap-3">
-        <AppSelect/>
-        <AppInput @submit-input="submitInput"/>
+        <AppSelect @select-changed="isSelectChanged"/>
+        <AppInput @input-submitted="isInputSubmitted"/>
       </div>
     </div>
   </header>

@@ -12,20 +12,20 @@ export default {
   props: {},
   computed: {},
   methods: {
-    submitInput() {
-      this.$emit('submit-input');
+    isInputSubmitted() {
+      this.$emit('input-submitted');
     }
   },
-  emits: ['submit-input']
+  emits: ['input-submitted']
 }
 </script>
 
 <template>
-  <div class="container input-group p-5">
+  <div class="input-group p-5">
     <input type="text" class="form-control" placeholder="Search..."
     v-model="store.searchedText">
     <button class="btn btn-primary" type="button"
-    @click="submitInput">Search</button>
+    @click="isInputSubmitted">Search</button>
   </div>
 </template>
 

@@ -10,13 +10,13 @@ const urlData = {
 }
 
 import axios from 'axios';
+import { store } from './assets/data/store.js';
 import AppHeader from '@/components/header/AppHeader.vue';
 import AppMain from '@/components/main/AppMain.vue';
 
 export default {
   data() {
     return {
-      searchedText: ''
     }
   },
   components: {
@@ -26,10 +26,10 @@ export default {
   props: {},
   computed: {
     currentMovieUrl() {
-      return `${urlData.baseUri}${urlData.category.movie}?api_key=${urlData.apiKey}&query=${this.searchedText}`;
+      return `${urlData.baseUri}${urlData.category.movie}?api_key=${urlData.apiKey}&query=${store.searchedText}`;
     },
     currentTvUrl() {
-      return `${urlData.baseUri}${urlData.category.tv}?api_key=${urlData.apiKey}&query=${this.searchedText}`;
+      return `${urlData.baseUri}${urlData.category.tv}?api_key=${urlData.apiKey}&query=${store.searchedText}`;
     }
   },
   methods: {
@@ -52,7 +52,7 @@ export default {
 </script>
 
 <template>
-  <AppHeader/>
+  <AppHeader @submit-input="findFilms"/>
   <AppMain/>
 </template>
 

@@ -1,24 +1,32 @@
 <script>
 
+import { store } from '@/assets/data/store.js';
+
 export default {
   data() {
-    return {}
+    return {
+      store
+    }
   },
   components: {},
   props: {},
   computed: {},
-  methods: {}
+  methods: {
+    submitInput() {
+      this.$emit('submit-input');
+    }
+  },
+  emits: ['submit-input']
 }
 </script>
 
 <template>
-  <div>App input</div>
-  <!-- <div class="container input-group p-5">
+  <div class="container input-group p-5">
     <input type="text" class="form-control" placeholder="Search..."
-    v-model="searchedText">
+    v-model="store.searchedText">
     <button class="btn btn-primary" type="button"
-    @click="findFilms()">Search</button>
-  </div> -->
+    @click="submitInput">Search</button>
+  </div>
 </template>
 
 <style lang="scss" scoped>

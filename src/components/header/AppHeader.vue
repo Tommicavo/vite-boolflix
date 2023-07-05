@@ -13,7 +13,12 @@ export default {
   },
   props: {},
   computed: {},
-  methods: {}
+  methods: {
+    submitInput() {
+      this.$emit('submit-input');
+    }
+  },
+  emits: ['submit-input']
 }
 </script>
 
@@ -25,7 +30,7 @@ export default {
       </div>
       <div class="headerNav d-flex align-items-center gap-3">
         <AppSelect/>
-        <AppInput/>
+        <AppInput @submit-input="submitInput"/>
       </div>
     </div>
   </header>

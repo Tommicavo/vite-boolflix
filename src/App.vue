@@ -35,12 +35,32 @@ export default {
   methods: {
     findMovie(url) {
       axios.get(url).then(res => {
-        console.log(res.data.results);
+        const movies = res.data.results;
+        store.myMovies = movies.map(movie=> {
+          const {id, original_title, title, original_language, vote_average} = movie;
+          return {
+            id: id,
+            title: title,
+            originalTitle: original_title,
+            lang: original_language,
+            vote: vote_average
+          }
+        })
       })
     },
     findTv(url) {
       axios.get(url).then(res => {
-        console.log(res.data.results);
+        const tvs = res.data.results;
+        store.myTvs = tvs.map(tv => {
+          const {id, original_name, name, original_language, vote_average} = tv;
+          return {
+            id: id,
+            title: name,
+            originalTitle: original_name,
+            lang: original_language,
+            vote: vote_average
+          }
+        })
       })
     },
     findFilms() {

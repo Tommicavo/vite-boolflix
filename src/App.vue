@@ -10,6 +10,8 @@ const urlData = {
 }
 
 import axios from 'axios';
+import AppHeader from '@/components/header/AppHeader.vue';
+import AppMain from '@/components/main/AppMain.vue';
 
 export default {
   data() {
@@ -17,7 +19,10 @@ export default {
       searchedText: ''
     }
   },
-  components: {},
+  components: {
+    AppHeader,
+    AppMain
+  },
   props: {},
   computed: {
     currentMovieUrl() {
@@ -47,12 +52,8 @@ export default {
 </script>
 
 <template>
-  <div class="container input-group p-5">
-    <input type="text" class="form-control" placeholder="Search..."
-    v-model="searchedText">
-    <button class="btn btn-primary" type="button"
-    @click="findFilms()">Search</button>
-  </div>
+  <AppHeader/>
+  <AppMain/>
 </template>
 
 <style lang="scss">

@@ -97,8 +97,8 @@ export default {
 
 <template>
   <AppHeader
-  @input-submitted="findFilms"
-  @select-changed="findFilms"/>
+  @select-changed="findFilms"
+  @text-written="findFilms"/>
   <AppMain/>
 </template>
 

@@ -2,6 +2,7 @@
 
 import AppSelect from '@/components/generics/AppSelect.vue';
 import AppInput from '@/components/generics/AppInput.vue';
+import { store } from '@/assets/data/store.js';
 
 export default {
   data() {
@@ -12,28 +13,41 @@ export default {
     AppInput
   },
   props: {},
-  computed: {},
-  methods: {
-    isInputSubmitted() {
-      this.$emit('input-submitted');
-    },
-    isSelectChanged() {
-      this.$emit('select-changed');
+  computed: {
+    isEmptyFields() {
+      return !store.searchedText && store.selectedGenre === -1;
     }
   },
-  emits: ['input-submitted', 'select-changed']
+  methods: {
+    isSelectChanged() {
+      this.$emit('select-changed');
+    },
+    searchText(text) {
+      this.$emit('text-written', text);
+    },
+    clearFilters() {
+      store.searchedText = '';
+      store.selectedGenre = -1;
+    }
+  },
+  emits: ['select-changed', 'text-written']
 }
 </script>
 
 <template>
   <header>
-    <div class="container d-flex justify-content-between align-items-center">
+    <div class="container d-flex justify-content-between align-items-center p-5">
       <div class="headerLogo">
         LOGO BOOLFLIX
       </div>
-      <div class="headerNav d-flex align-items-center gap-3">
-        <AppSelect @select-changed="isSelectChanged"/>
-        <AppInput @input-submitted="isInputSubmitted"/>
+      <div class="headerNav d-flex align-items-center">
+        <div class="input-group">
+          <span class="input-group-text" id="basic-addon1">Search Media</span>          
+          <span><AppSelect @select-changed="isSelectChanged"/></span>
+          <span><AppInput @text-written="searchText"/></span>
+          <button @click="clearFilters" :class="{disabled : isEmptyFields}"
+          class="btn btn-warning" type="button">Clear</button>
+        </div>
       </div>
     </div>
   </header>

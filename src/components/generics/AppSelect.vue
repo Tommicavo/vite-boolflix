@@ -26,12 +26,16 @@ export default {
 
 <template>
   <select class="form-select" v-model="store.selectedGenre" @change="isSelectChanged">
-    <option :value="defaultValue">Choose genre</option>
+    <option class="defaultOption" :value="defaultValue">by genre</option>
     <option v-for="genre in store.myGenres" :key="genre.id"
     :value="genre.id"> {{ genre.name }} </option>
   </select>
 </template>
 
 <style lang="scss" scoped>
+.form-select{
+  border-radius: 0;
+}
+
 
 </style>

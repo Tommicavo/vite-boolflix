@@ -5,30 +5,35 @@ import { store } from '@/assets/data/store.js';
 export default {
   data() {
     return {
-      store
+      store,
+      timeoutId: null
     }
   },
   components: {},
   props: {},
   computed: {},
   methods: {
-    isInputSubmitted() {
-      this.$emit('input-submitted');
+    searchText() {
+      clearTimeout(this.timeoutId);
+      this.timeoutId = setTimeout(() => {
+        this.$emit('text-written', store.searchedText);
+      }, 1000);
     }
   },
-  emits: ['input-submitted']
+  emits: ['text-written']
 }
 </script>
 
 <template>
-  <div class="input-group p-5">
-    <input type="text" class="form-control" placeholder="Search..."
-    v-model="store.searchedText" @keyup.enter="isInputSubmitted">
-    <button class="btn btn-primary" type="button"
-    @click="isInputSubmitted">Search</button>
+  <div class="input-group">
+    <input type="text" class="form-control" placeholder="by title"
+    v-model="store.searchedText" @keyup="searchText">
   </div>
 </template>
 
 <style lang="scss" scoped>
+.form-control{
+  border-radius: 0;
+}
 
 </style>

@@ -43,7 +43,7 @@ export default {
     <div class="cardTitle py-2"> {{ cardData.title }} </div>
 
     <div class="cardFront text-center h-100">
-      <img :src="getPosterPath" :alt="cardData.title">
+      <img class="poster" :src="getPosterPath" :alt="cardData.title">
     </div>
     <div class="cardBack flex-column justify-content-between">
 
@@ -80,10 +80,10 @@ export default {
 }
 
 .cardTitle{
-  align-self: center;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
-  height: 80px;
+  height: 90px;
+  text-align: center;
 }
 
 .cardLang{
@@ -93,6 +93,10 @@ export default {
 }
 .voiceMenu{
   font-weight: 700;
+}
+
+.poster{
+  border-radius: 10px;
 }
 
 .myCard .cardFront{

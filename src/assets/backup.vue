@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 
 import { store } from './assets/data/store.js';
 import { urlData } from './assets/data/urlData.js';
@@ -26,29 +26,51 @@ export default {
     }
   },
   methods: {
-    fetchProduct(url, playlist) {
+    fetchMovie(url) {
       axios.get(url).then(res => {
-        let products = res.data.results;
+        let movies = res.data.results;
 
-        products = this.filterGenres(products, store.selectedGenre);
-        console.log(products);
+        movies = this.filterGenres(movies, store.selectedGenre);
+        console.log(movies);
 
-        playlist = products.map(product=> {
+        store.myMovies = movies.map(movie=> {
+          const {id, original_title, title, original_language, vote_average, genre_ids, poster_path} = movie;
           return {
-            id: product.id,
-            title: product.title || product.name,
-            originalTitle: product.original_title || product.original_name,
-            lang: product.original_language,
-            vote: product.vote_average,
-            genre: product.genre_ids,
-            cover: product.poster_path
+            id: id,
+            title: title,
+            originalTitle: original_title,
+            lang: original_language,
+            vote: vote_average,
+            genre: genre_ids,
+            cover: poster_path
+          }
+        })
+      })
+    },
+    fetchTv(url) {
+      axios.get(url).then(res => {
+        let tvs = res.data.results;
+
+        tvs = this.filterGenres(tvs, store.selectedGenre);
+        console.log(tvs);
+
+        store.myTvs = tvs.map(tv => {
+          const {id, original_name, name, original_language, vote_average, genre_ids, poster_path} = tv;
+          return {
+            id: id,
+            title: name,
+            originalTitle: original_name,
+            lang: original_language,
+            vote: vote_average,
+            genre: genre_ids,
+            cover: poster_path
           }
         })
       })
     },
     findFilms() {
-      this.fetchProduct(this.currentMovieUrl, store.myMovies);
-      this.fetchProduct(this.currentTvUrl, store.myTvs);
+      this.fetchMovie(this.currentMovieUrl);
+      this.fetchTv(this.currentTvUrl);
     },
     getGenreList(url) {
       axios.get(url).then(res => {
@@ -84,4 +106,4 @@ export default {
 
 <style lang="scss">
 @use './assets/scss/style.scss';
-</style>
+</style> -->

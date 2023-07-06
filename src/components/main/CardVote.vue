@@ -28,4 +28,8 @@ export default {
 
 <style lang="scss" scoped>
 
+.fa-star{
+  color: gold;
+}
+
 </style>

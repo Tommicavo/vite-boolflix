@@ -1,18 +1,8 @@
 <script>
 
-const urlData = {
-  baseUri: 'https://api.themoviedb.org/3',
-  category: {
-    movie: '/search/movie',
-    tv: '/search/tv'
-  },
-  genres: '/genre/movie/list',
-  languages: '/configuration/languages',
-  apiKey: 'b2955b1b545c26b1b74bcc846aea4325'
-}
-
-import axios from 'axios';
 import { store } from './assets/data/store.js';
+import { urlData } from './assets/data/urlData.js';
+import axios from 'axios';
 import AppHeader from '@/components/header/AppHeader.vue';
 import AppMain from '@/components/main/AppMain.vue';
 
@@ -88,9 +78,7 @@ export default {
     getLanguageList(url) {
       axios.get(url).then(res => {
         const languages = res.data;
-        store.myLanguages = languages.map(lang => {
-          return lang.iso_639_1;
-        });
+        store.myLanguages = languages.map(lang => lang.iso_639_1);
       })
     },
     filterGenres(films, genre) {

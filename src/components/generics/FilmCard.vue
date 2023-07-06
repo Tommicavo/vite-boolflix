@@ -1,10 +1,9 @@
 <script>
 
-import { store } from '@/assets/data/store.js';
-
 export default {
   data() {
     return {
+      availableLang: ['en', 'it']
     }
   },
   components: {},
@@ -12,36 +11,44 @@ export default {
     cardData: Object
   },
   computed: {
+    hasFlag() {
+      return this.availableLang.includes(this.cardData.lang);
+    },
+    getImageFlag() {
+      return new URL(`../../assets/img/${this.cardData.lang}.png`, import.meta.url).href;
+    },
+    setVote() {
+      return Math.ceil(this.cardData.vote * 0.5);
+    }
   },
   methods: {
-    getImageFlag(lang) {
-      console.log(lang);
-      if (store.myLanguages.includes(lang)) return new URL(`../../assets/img/${lang}.png`, import.meta.url).href;
-    },
-    setVote(vote) {
-      return Math.ceil(vote * 0.5);
-    }
   }
 }
 </script>
 
 <template>
-  <div class="myCard d-flex flex-column justify-content-between">
-    <div class="cardTop d-flex flex-column">
-      <div class="cardTitle py-2"> {{ cardData.title }} </div>
-      <div class="cardLang">
-        <img class="img-fluid" :src='getImageFlag(cardData.lang)' :alt='`Lang: ${cardData.lang}`'>
+  <div class="myCard">
+    <div class="cardFront text-center h-100">card front</div>
+    <div class="cardBack flex-column justify-content-between h-100">
+      <div class="cardTop d-flex flex-column">
+        <div class="cardTitle py-2"> {{ cardData.title }} </div>
+        <div class="cardLang">
+          <img v-if="hasFlag" class="img-fluid" :src='getImageFlag' :alt='cardData.lang'>
+          <div v-else>
+            <span class="voiceMenu"> Lang: </span>
+            <span> {{ cardData.lang }} </span>
+          </div>
+        </div>
       </div>
-    </div>
-    
-    <div class="cardInfo d-flex flex-column">
-      <div class="cardOriginal">
-        <span class="voiceMenu">Original Title: </span>
-        <span> {{ cardData.originalTitle }} </span>
-      </div>
-      <div class="cardVote">
-        <span class="voiceMenu">Voto: </span>
-        <span> {{ setVote(cardData.vote) }} </span>
+      <div class="cardInfo d-flex flex-column">
+        <div class="cardOriginal">
+            <span class="voiceMenu">Original Title: </span>
+            <span> {{ cardData.originalTitle }} </span>
+          </div>
+          <div class="cardVote">
+            <span class="voiceMenu">Voto: </span>
+            <span> {{ setVote }} </span>
+          </div>
       </div>
     </div>
   </div>
@@ -53,6 +60,7 @@ export default {
   border-radius: 10px;
   background-color: aqua;
   height: 100%;
+  cursor: pointer;
 }
 
 .cardTitle{
@@ -74,6 +82,22 @@ export default {
 
 .voiceMenu{
   font-weight: 700;
+}
+
+.myCard .cardFront{
+  display: block;
+}
+
+.myCard:hover .cardFront{
+  display: none;
+}
+
+.myCard .cardBack{
+  display: none;
+}
+
+.myCard:hover .cardBack{
+  display: flex;
 }
 
 </style>

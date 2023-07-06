@@ -23,7 +23,7 @@ export default {
   <div class="filmList my-3">
     <div class="container">
       <div class="row row-cols-4">
-        <div class="col mb-3" v-for="card in store.myMovies" :key="card.id">
+        <div class="col mb-5" v-for="card in store.myMovies" :key="card.id">
           <FilmCard :cardData="card"/>
         </div>
       </div>

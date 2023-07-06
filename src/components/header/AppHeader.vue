@@ -28,6 +28,7 @@ export default {
     clearFilters() {
       store.searchedText = '';
       store.selectedGenre = -1;
+      this.searchText();
     }
   },
   emits: ['select-changed', 'text-written']

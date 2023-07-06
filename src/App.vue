@@ -34,14 +34,15 @@ export default {
         console.log(movies);
 
         store.myMovies = movies.map(movie=> {
-          const {id, original_title, title, original_language, vote_average, genre_ids} = movie;
+          const {id, original_title, title, original_language, vote_average, genre_ids, poster_path} = movie;
           return {
             id: id,
             title: title,
             originalTitle: original_title,
             lang: original_language,
             vote: vote_average,
-            genre: genre_ids
+            genre: genre_ids,
+            cover: poster_path
           }
         })
       })
@@ -54,14 +55,15 @@ export default {
         console.log(tvs);
 
         store.myTvs = tvs.map(tv => {
-          const {id, original_name, name, original_language, vote_average, genre_ids} = tv;
+          const {id, original_name, name, original_language, vote_average, genre_ids, poster_path} = tv;
           return {
             id: id,
             title: name,
             originalTitle: original_name,
             lang: original_language,
             vote: vote_average,
-            genre: genre_ids
+            genre: genre_ids,
+            cover: poster_path
           }
         })
       })

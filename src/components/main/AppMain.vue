@@ -1,7 +1,7 @@
 <script>
 
+import MainSection from '@/components/main/MainSection.vue';
 import { store } from '@/assets/data/store.js';
-import FilmCard from '@/components/generics/FilmCard.vue';
 
 export default {
   data() {
@@ -10,39 +10,34 @@ export default {
     }
   },
   components: {
-    FilmCard
+    MainSection
   },
   props: {},
-  computed: {},
+  computed: {
+    isSearchEmpty() {
+      return !store.myMovies.length && !store.myTvs.length;
+    }
+  },
   methods: {}
 }
 </script>
 
 <template>
-  <h2 class="text-center p-3">Film</h2>
-  <div class="filmList my-3">
-    <div class="container">
-      <div class="row row-cols-4">
-        <div class="col mb-5" v-for="card in store.myMovies" :key="card.id">
-          <FilmCard :cardData="card"/>
-        </div>
-      </div>
-    </div>
-  </div>
-  <h2 class="text-center p-3">Tv Series</h2>
-  <div class="tvList">
-    <div class="container my-3">
-      <div class="row row-cols-4">
-        <div class="col mb-3" v-for="card in store.myTvs" :key="card.id">
-          <FilmCard :cardData="card"/>
-        </div>
-      </div>
-    </div>
-  </div>
+  <main :class="{emptyMain : isSearchEmpty}">
+    <MainSection :storePlaylist="store.myMovies" title="Movies"/>
+    <MainSection :storePlaylist="store.myTvs" title="Tv Series"/>
+  </main>
 </template>
 
 <style lang="scss" scoped>
-.col{
-  height: 400px;
+@use '@/assets/scss/partials/_vars.scss' as *;
+
+main{
+  background-color: #181818;
 }
+
+.emptyMain{
+  height: $mainHeight;
+}
+
 </style>

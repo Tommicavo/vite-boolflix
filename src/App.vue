@@ -26,14 +26,14 @@ export default {
     }
   },
   methods: {
-    fetchProduct(url, playlist) {
+    fetchProduct(url, storePlaylist) {
       axios.get(url).then(res => {
-        let products = res.data.results;
+        const products = res.data.results;
 
-        products = this.filterGenres(products, store.selectedGenre);
-        console.log(products);
+        const filteredProducts = this.filterGenres(products, store.selectedGenre);
+        console.log(filteredProducts);
 
-        playlist = products.map(product=> {
+        store[storePlaylist] = filteredProducts.map(product=> {
           return {
             id: product.id,
             title: product.title || product.name,
@@ -41,14 +41,15 @@ export default {
             lang: product.original_language,
             vote: product.vote_average,
             genre: product.genre_ids,
-            cover: product.poster_path
+            cover: product.poster_path,
+            overview: product.overview
           }
         })
       })
     },
     findFilms() {
-      this.fetchProduct(this.currentMovieUrl, store.myMovies);
-      this.fetchProduct(this.currentTvUrl, store.myTvs);
+      this.fetchProduct(this.currentMovieUrl, 'myMovies');
+      this.fetchProduct(this.currentTvUrl, 'myTvs');
     },
     getGenreList(url) {
       axios.get(url).then(res => {

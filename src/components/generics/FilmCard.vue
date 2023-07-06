@@ -29,6 +29,9 @@ export default {
     regularStars() {
       return this.maxStars - this.solidStars;
     },
+    isPoster() {
+      return this.cardData.cover;
+    },
     getPosterPath() {
       return `${urlData.cover}${this.cardData.cover}`;
     }
@@ -42,12 +45,17 @@ export default {
   <div class="myCard">
     <div class="cardTitle py-2"> {{ cardData.title }} </div>
 
-    <div class="cardFront text-center h-100">
-      <img class="poster" :src="getPosterPath" :alt="cardData.title">
+    <div class="cardFront text-center">
+      <img v-if="isPoster" class="poster" :src="getPosterPath" :alt="cardData.title">
+      <div v-else class="imgUnavailable">
+        <div>Image</div>
+        <div><font-awesome-icon :icon="['fas', 'magnifying-glass']" /></div>
+        <div>Unavailable</div>
+      </div>
     </div>
     <div class="cardBack flex-column justify-content-between">
 
-      <div class="cardLang">
+      <div class="cardLang py-2">
         <img v-if="hasFlag" class="img-fluid" :src='getImageFlag' :alt='cardData.lang'>
         <div v-else>
           <span class="voiceMenu"> Lang: </span>
@@ -64,6 +72,10 @@ export default {
             <span class="voiceMenu">Voto: </span>
             <CardVote :solid="solidStars" :regular="regularStars"/>
           </div>
+          <div class="cardOverview">
+            <span class="voiceMenu">Overview: </span>
+            <span> {{ cardData.overview }} </span>
+          </div>
       </div>
     </div>
   </div>
@@ -77,6 +89,7 @@ export default {
   color: white;
   height: 100%;
   cursor: pointer;
+  box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.5);
 }
 
 .cardTitle{
@@ -86,31 +99,41 @@ export default {
   text-align: center;
 }
 
+.cardBack{
+  height: 280px;
+  overflow: auto;
+}
+
 .cardLang{
   align-self: center;
   width: 80px;
   height: 50px;
 }
+
 .voiceMenu{
+  display: inline-block;
   font-weight: 700;
+  padding-top: 10px;
 }
 
 .poster{
   border-radius: 10px;
 }
 
+.imgUnavailable{
+  font-size: 24px;
+  padding: 10px 0;
+}
+
 .myCard .cardFront{
   display: block;
 }
-
 .myCard:hover .cardFront{
   display: none;
 }
-
 .myCard .cardBack{
   display: none;
 }
-
 .myCard:hover .cardBack{
   display: flex;
 }

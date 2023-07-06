@@ -36,11 +36,9 @@ export default {
 </script>
 
 <template>
-  <header>
-    <div class="container d-flex justify-content-between align-items-center p-5">
-      <div class="headerLogo">
-        LOGO BOOLFLIX
-      </div>
+  <header class="d-flex justify-content-center align-items-center">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div class="headerLogo">BOOLFLIX</div>
       <div class="headerNav d-flex align-items-center">
         <div class="input-group">
           <span class="input-group-text" id="basic-addon1">Search Media</span>          
@@ -55,5 +53,17 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+@use '@/assets/scss/partials/_vars.scss' as *;
+
+header{
+  background-color: black;
+  height: $headerHeight;
+}
+
+.headerLogo{
+  font-size: 24px;
+  font-weight: 700;
+  color: red;
+}
 
 </style>

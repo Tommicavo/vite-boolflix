@@ -26,9 +26,6 @@ export default {
     solidStars() {
       return Math.ceil(this.cardData.vote * 0.5);
     },
-    regularStars() {
-      return this.maxStars - this.solidStars;
-    },
     isPoster() {
       return this.cardData.cover;
     },
@@ -70,7 +67,7 @@ export default {
           </div>
           <div class="cardVote">
             <span class="voiceMenu">Voto: </span>
-            <CardVote :solid="solidStars" :regular="regularStars"/>
+            <CardVote :solid="solidStars" :total="maxStars"/>
           </div>
           <div class="cardOverview">
             <span class="voiceMenu">Overview: </span>

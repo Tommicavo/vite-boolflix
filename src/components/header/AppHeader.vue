@@ -22,9 +22,6 @@ export default {
     isSelectChanged() {
       this.$emit('select-changed');
     },
-    searchText(text) {
-      this.$emit('text-written', text);
-    },
     clearFilters() {
       store.searchedText = '';
       store.selectedGenre = -1;
@@ -43,7 +40,7 @@ export default {
         <div class="input-group">
           <span class="input-group-text" id="basic-addon1">Search Media</span>          
           <span><AppSelect @select-changed="isSelectChanged"/></span>
-          <span><AppInput @text-written="searchText"/></span>
+          <span><AppInput @text-written="$emit('text-written')"/></span>
           <button @click="clearFilters" :class="{disabled : isEmptyFields}"
           class="btn btn-warning" type="button">Clear</button>
         </div>

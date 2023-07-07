@@ -7,21 +7,21 @@ export default {
   components: {},
   props: {
     solid: Number,
-    regular: Number
+    total: Number
   },
-  computed: {
-  },
-  methods: {}
+  computed: {},
+  methods: {
+    iconClass(n) {
+      return n <= this.solid ? 'fas' : 'far';
+    }
+  }
 }
 </script>
 
 <template>
   <span class="cardVote">
-    <span v-for="(star, i) in solid" :key="i">
-      <font-awesome-icon icon="fa-solid fa-star" />
-    </span>
-    <span v-for="(star, i) in regular" :key="i">
-      <font-awesome-icon icon="fa-regular fa-star" />
+    <span v-for="(star, i) in total">
+      <font-awesome-icon :icon="[iconClass(star), 'star']" />
     </span>
   </span>
 </template>

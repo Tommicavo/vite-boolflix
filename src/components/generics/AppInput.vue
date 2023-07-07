@@ -16,7 +16,7 @@ export default {
     searchText() {
       clearTimeout(this.timeoutId);
       this.timeoutId = setTimeout(() => {
-        this.$emit('text-written', store.searchedText);
+        this.$emit('text-written');
       }, 1000);
     }
   },

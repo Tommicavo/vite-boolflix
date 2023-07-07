@@ -6,7 +6,9 @@ import { store } from '@/assets/data/store.js';
 
 export default {
   data() {
-    return {}
+    return {
+      store
+    }
   },
   components: {
     AppSelect,
@@ -19,7 +21,8 @@ export default {
     }
   },
   methods: {
-    isSelectChanged() {
+    isSelectChanged(genre) {
+      store.selectedGenre = genre;
       this.$emit('select-changed');
     },
     searchText(text) {
@@ -43,7 +46,7 @@ export default {
       <div class="headerNav d-flex align-items-center">
         <div class="input-group">
           <span class="input-group-text" id="basic-addon1">Search Media</span>          
-          <span><AppSelect @select-changed="isSelectChanged"/></span>
+          <span><AppSelect @select-changed="isSelectChanged" :options="store.myGenres"/></span>
           <span><AppInput @text-written="searchText"/></span>
           <button @click="clearFilters" :class="{disabled : isEmptyFields}"
           class="btn btn-warning" type="button">Clear</button>

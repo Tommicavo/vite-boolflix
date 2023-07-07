@@ -1,21 +1,24 @@
 <script>
 
 import FilmCard from '@/components/generics/FilmCard.vue';
+import { store } from '@/assets/data/store.js';
 
 export default {
   data() {
-    return {}
+    return {
+      store
+    }
   },
   components: {
     FilmCard
   },
   props: {
-    storePlaylist: Array,
+    storePlaylist: String,
     title: String
   },
   computed: {
     isPlaylistEmpty() {
-      return !this.storePlaylist.length;
+      return !store[this.storePlaylist].length;
     }
   },
   methods: {}
@@ -28,7 +31,7 @@ export default {
     <div class="filmList">
       <div class="container">
         <div class="row row-cols-4">
-          <div class="col mb-5" v-for="card in storePlaylist" :key="card.id">
+          <div class="col mb-5" v-for="card in store[this.storePlaylist]" :key="card.id">
             <FilmCard :cardData="card"/>
           </div>
         </div>

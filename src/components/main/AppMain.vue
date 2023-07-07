@@ -6,7 +6,6 @@ import { store } from '@/assets/data/store.js';
 export default {
   data() {
     return {
-      store
     }
   },
   components: {
@@ -24,8 +23,8 @@ export default {
 
 <template>
   <main :class="{emptyMain : isSearchEmpty}">
-    <MainSection :storePlaylist="store.myMovies" title="Movies"/>
-    <MainSection :storePlaylist="store.myTvs" title="Tv Series"/>
+    <MainSection storePlaylist="myMovies" title="Movies"/>
+    <MainSection storePlaylist="myTvs" title="Tv Series"/>
   </main>
 </template>
 

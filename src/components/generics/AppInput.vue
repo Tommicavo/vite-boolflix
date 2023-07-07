@@ -4,28 +4,30 @@ export default {
   data() {
     return {
       timeoutId: null,
-      inputText: '',
     }
   },
   components: {},
-  props: {},
+  props: {
+    modelValue: String
+  },
   computed: {},
   methods: {
-    searchText() {
+    searchText(text) {
       clearTimeout(this.timeoutId);
       this.timeoutId = setTimeout(() => {
-        this.$emit('text-written', this.inputText);
+        this.$emit('update:modelValue', text);
+        this.$emit('text-written');
       }, 1000);
     }
   },
-  emits: ['text-written']
+  emits: ['update:modelValue', 'text-written']
 }
 </script>
 
 <template>
   <div class="input-group">
     <input type="text" class="form-control" placeholder="by title"
-    v-model="inputText" @keyup="searchText">
+    :value="modelValue" @keyup="searchText($event.target.value)">
   </div>
 </template>
 

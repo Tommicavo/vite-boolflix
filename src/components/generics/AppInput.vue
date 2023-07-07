@@ -1,12 +1,10 @@
 <script>
 
-import { store } from '@/assets/data/store.js';
-
 export default {
   data() {
     return {
-      store,
-      timeoutId: null
+      timeoutId: null,
+      inputText: '',
     }
   },
   components: {},
@@ -16,7 +14,7 @@ export default {
     searchText() {
       clearTimeout(this.timeoutId);
       this.timeoutId = setTimeout(() => {
-        this.$emit('text-written');
+        this.$emit('text-written', this.inputText);
       }, 1000);
     }
   },
@@ -27,7 +25,7 @@ export default {
 <template>
   <div class="input-group">
     <input type="text" class="form-control" placeholder="by title"
-    v-model="store.searchedText" @keyup="searchText">
+    v-model="inputText" @keyup="searchText">
   </div>
 </template>
 

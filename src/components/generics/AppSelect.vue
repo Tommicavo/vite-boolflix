@@ -3,29 +3,28 @@
 export default {
   data() {
     return {
-      defaultValue: -1,
-      optionValue: ''
+      defaultValue: '-1'
     }
   },
   components: {},
   props: {
+    modelValue: String,
     options: Array
   },
   computed: {},
   methods: {
-    isSelectChanged() {
-      this.$emit('select-changed', this.optionValue);
+    isSelectChanged(value) {
+      this.$emit('update:modelValue', value);
+      this.$emit('select-changed');
     }
   },
-  mounted() {
-    this.optionValue = this.defaultValue;
-  },
-  emits: ['select-changed']
+  emits: ['update:modelValue', 'select-changed']
 }
 </script>
 
 <template>
-  <select class="form-select" v-model="optionValue" @change="isSelectChanged">
+  <select class="form-select"
+  :value="modelValue" @change="isSelectChanged($event.target.value)">
     <option class="defaultOption" :value="defaultValue">by genre</option>
     <option v-for="genre in options" :key="genre.id"
     :value="genre.id"> {{ genre.name }} </option>

@@ -27,6 +27,7 @@ export default {
   },
   methods: {
     fetchProduct(url, storePlaylist) {
+      console.log(url);
       axios.get(url).then(res => {
         const products = res.data.results;
 
@@ -63,8 +64,8 @@ export default {
       })
     },
     filterGenres(films, genre) {
-      if (store.selectedGenre === -1) return films;
-      return films = films.filter(film => {
+      if (genre == -1) return films;
+      return films.filter(film => {
           return film.genre_ids.includes(genre);
         });
     }

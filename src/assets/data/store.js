@@ -6,5 +6,5 @@ export const store = reactive({
     myTvs: [],
     myGenres: [],
     myLanguages: [],
-    selectedGenre: ''
+    selectedGenre: '-1'
 });

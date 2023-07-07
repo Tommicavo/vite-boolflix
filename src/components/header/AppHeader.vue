@@ -13,7 +13,7 @@ export default {
   props: {},
   computed: {},
   methods: {},
-  emits: ['text-written']
+  emits: ['text-written', 'select-changed']
 
 }
 </script>
@@ -23,7 +23,9 @@ export default {
     <div class="container d-flex justify-content-between align-items-center">
       <div class="headerLogo">BOOLFLIX</div>
       <div class="headerNav d-flex align-items-center">
-        <AppForm @text-written="$emit('text-written')"/>
+        <AppForm
+        @text-written="$emit('text-written')"
+        @select-changed="$emit('select-changed')"/>
       </div>
     </div>
   </header>

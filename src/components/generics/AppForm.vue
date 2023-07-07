@@ -9,7 +9,7 @@ export default {
     return {
       store,
       inputText: '',
-      optionValue: ''
+      optionValue: '-1'
     }
   },
   components: {
@@ -23,19 +23,21 @@ export default {
     }
   },
   methods: {
-    isSelectChanged(genre) {
-      store.selectedGenre = genre;
+    isSelectChanged() {
+      store.selectedGenre = parseInt(this.optionValue);
+      console.log('select changed: ', store.selectedGenre);
       this.$emit('select-changed');
     },
     searchText() {
       store.searchedText = this.inputText;
-      console.log(store.searchedText);
+      console.log('search text: ', store.searchedText);
       this.$emit('text-written');
     },
     clearFilters() {
-      store.searchedText = '';
-      store.selectedGenre = -1;
+      this.inputText = '';
+      this.optionValue = '-1';
       this.searchText();
+      this.isSelectChanged();
     }
   },
   emits: ['select-changed', 'text-written']
@@ -45,8 +47,15 @@ export default {
 <template>
   <div class="input-group">
     <span class="input-group-text" id="basic-addon1">Search Media</span>          
-    <!-- <span><AppSelect :options="store.myGenres"/></span> -->
-    <span><AppInput v-model="inputText" @text-written="searchText"/></span>
+    <span><AppSelect
+      v-model="optionValue"
+      :options="store.myGenres"
+      @select-changed="isSelectChanged"/></span>
+
+    <span><AppInput
+      v-model="inputText"
+      @text-written="searchText"/></span>
+
     <button @click="clearFilters" :class="{disabled : isEmptyFields}"
     class="btn btn-warning" type="button">Clear</button>
   </div>

@@ -2,12 +2,10 @@
 
 import AppSelect from '@/components/generics/AppSelect.vue';
 import AppInput from '@/components/generics/AppInput.vue';
-import { store } from '@/assets/data/store.js';
 
 export default {
   data() {
     return {
-      store,
       inputText: '',
       optionValue: '-1'
     }
@@ -16,22 +14,20 @@ export default {
     AppSelect,
     AppInput,
   },
-  props: {},
+  props: {
+    options: Array
+  },
   computed: {
     isEmptyFields() {
-      return !store.searchedText && store.selectedGenre === -1;
+      return !this.inputText && this.optionValue == -1;
     }
   },
   methods: {
-    isSelectChanged() {
-      store.selectedGenre = parseInt(this.optionValue);
-      console.log('select changed: ', store.selectedGenre);
-      this.$emit('select-changed');
-    },
     searchText() {
-      store.searchedText = this.inputText;
-      console.log('search text: ', store.searchedText);
-      this.$emit('text-written');
+      this.$emit('text-written', this.inputText);
+    },
+    isSelectChanged() {
+      this.$emit('select-changed', this.optionValue);
     },
     clearFilters() {
       this.inputText = '';
@@ -49,7 +45,7 @@ export default {
     <span class="input-group-text" id="basic-addon1">Search Media</span>          
     <span><AppSelect
       v-model="optionValue"
-      :options="store.myGenres"
+      :options="options"
       @select-changed="isSelectChanged"/></span>
 
     <span><AppInput

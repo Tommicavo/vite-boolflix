@@ -27,12 +27,11 @@ export default {
   },
   methods: {
     fetchProduct(url, storePlaylist) {
-      console.log(url);
       axios.get(url).then(res => {
         const products = res.data.results;
 
         const filteredProducts = this.filterGenres(products, store.selectedGenre);
-        console.log(filteredProducts);
+        console.log('products: ', filteredProducts);
 
         store[storePlaylist] = filteredProducts.map(product=> {
           return {

@@ -1,10 +1,12 @@
 <script>
 
 import AppForm from '@/components/generics/AppForm.vue';
+import { store } from '@/assets/data/store.js';
 
 export default {
   data() {
     return {
+      store
     }
   },
   components: {
@@ -12,7 +14,18 @@ export default {
   },
   props: {},
   computed: {},
-  methods: {},
+  methods: {
+    searchText(text) {
+      store.searchedText = text;
+      console.log('text: ', store.searchedText);
+      this.$emit('text-written');
+    },
+    isSelectChanged(option) {
+      store.selectedGenre = parseInt(option);
+      console.log('select changed: ', store.selectedGenre);
+      this.$emit('select-changed');
+    },
+  },
   emits: ['text-written', 'select-changed']
 
 }
@@ -24,8 +37,9 @@ export default {
       <div class="headerLogo">BOOLFLIX</div>
       <div class="headerNav d-flex align-items-center">
         <AppForm
-        @text-written="$emit('text-written')"
-        @select-changed="$emit('select-changed')"/>
+        @text-written="searchText"
+        @select-changed="isSelectChanged"
+        :options="store.myGenres"/>
       </div>
     </div>
   </header>

@@ -2,19 +2,22 @@
 
 import { urlData } from '@/assets/data/urlData.js';
 import CardVote from '@/components/main/CardVote.vue';
+import axios from 'axios';
 
 export default {
   data() {
     return {
       availableLang: ['en', 'it'],
-      maxStars: 5
+      maxStars: 5,
+      actors: []
     }
   },
   components: {
     CardVote
   },
   props: {
-    cardData: Object
+    cardData: Object,
+    category: String
   },
   computed: {
     hasFlag() {
@@ -31,10 +34,26 @@ export default {
     },
     getPosterPath() {
       return `${urlData.cover}${this.cardData.cover}`;
+    },
+    getCastUrl() {
+      return `${urlData.baseUri}/${this.category}/${this.cardData.id}/credits?api_key=${urlData.apiKey}`;
+    },
+    getCast() {
+      axios.get(this.getCastUrl).then(res => {
+        this.actors = [];
+        const casts = res.data.cast;
+        for (let i = 0; i < 5; i++) {
+          this.actors.push(casts[i].name);
+        }
+      }).catch(err => {
+        this.actors.push(`Cast info unavailable for this ${this.category}...`);
+      }).then(res => {
+        console.log(this.actors);
+      });
+      return this.actors;
     }
   },
-  methods: {
-  }
+  methods: {}
 }
 </script>
 
@@ -62,17 +81,23 @@ export default {
 
       <div class="cardInfo d-flex flex-column">
         <div class="cardOriginal">
-            <span class="voiceMenu">Original Title: </span>
-            <span> {{ cardData.originalTitle }} </span>
+          <span class="voiceMenu">Original Title: </span>
+          <span> {{ cardData.originalTitle }} </span>
+        </div>
+        <div class="cardVote">
+          <span class="voiceMenu">Voto: </span>
+          <CardVote :solid="solidStars" :total="maxStars"/>
+        </div>
+        <div class="cardOverview">
+          <span class="voiceMenu">Overview: </span>
+          <span> {{ cardData.overview }} </span>
+        </div>
+        <div class="cardCast">
+          <div class="voiceMenu">Cast: </div>
+          <div v-for="(cast, i) in getCast" :key="i">
+            {{ cast }}
           </div>
-          <div class="cardVote">
-            <span class="voiceMenu">Voto: </span>
-            <CardVote :solid="solidStars" :total="maxStars"/>
-          </div>
-          <div class="cardOverview">
-            <span class="voiceMenu">Overview: </span>
-            <span> {{ cardData.overview }} </span>
-          </div>
+        </div>
       </div>
     </div>
   </div>

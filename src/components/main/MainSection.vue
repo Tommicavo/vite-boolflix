@@ -19,6 +19,10 @@ export default {
   computed: {
     isPlaylistEmpty() {
       return !store[this.storePlaylist].length;
+    },
+    filmCategory() {
+      if (this.title === 'Movies') return 'movie';
+      else return 'tv';
     }
   },
   methods: {}
@@ -32,7 +36,7 @@ export default {
       <div class="container">
         <div class="row row-cols-4">
           <div class="col mb-5" v-for="card in store[this.storePlaylist]" :key="card.id">
-            <FilmCard :cardData="card"/>
+            <FilmCard :cardData="card" :category="filmCategory"/>
           </div>
         </div>
       </div>
